@@ -1,8 +1,19 @@
-# React + Vite
+# Article Based Web App - Article Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+The **Article Hub** is a web application designed to provide users with a platform to read, create, and manage articles. It features user authentication, article submission, and a rich text editor for creating articles, making it a comprehensive tool for writers and readers alike.
 
-Currently, two official plugins are available:
+## Technologies Used
+- **Frontend:** React, JSX, Tailwind CSS
+- **Backend:** Node.js, Express, 
+- **Database:** MongoDB
+- **Deployment:** Aws
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation Instructions
+Follow these steps to set up the project locally:
+
+1. Clone the repository:
+
+   git clone https://github.com/Faydevlop/ArticleHub---Blog-app.git
+
+   npm install
