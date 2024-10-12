@@ -24,8 +24,8 @@ const UserRoutes = () => {
         <Routes>
             
             <Route path='' element={<Navigate to='/login' />} />  
-            <Route path='signup' element={<UserSignupPage />} />  
-            <Route path='login' element={<UserLoginpage />} />  
+            <Route path='signup' element={isAuthenticated ? <Navigate to='/dashboard' /> : <UserSignupPage />} />  
+            <Route path='login'  element={isAuthenticated ? <Navigate to='/dashboard' /> : <UserLoginpage />} />  
             <Route path='dashboard' element={isAuthenticated ? <UserDashboard /> : <Navigate to='/login' />} />  
             <Route path='profile' element={isAuthenticated ? <UserProfile /> : <Navigate to='/login' />} />  
             <Route path='add' element={isAuthenticated ? <AddArticle /> : <Navigate to='/login' />} />  
