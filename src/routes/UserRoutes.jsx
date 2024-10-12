@@ -22,6 +22,8 @@ const UserRoutes = () => {
   return (
     <Suspense fallback={<div>Loading...</div>} >
         <Routes>
+            
+            <Route path='' element={<Navigate to='/login' />} />  
             <Route path='signup' element={<UserSignupPage />} />  
             <Route path='login' element={<UserLoginpage />} />  
             <Route path='dashboard' element={isAuthenticated ? <UserDashboard /> : <Navigate to='/login' />} />  
