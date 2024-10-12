@@ -17,3 +17,6 @@ Follow these steps to set up the project locally:
    git clone https://github.com/Faydevlop/ArticleHub---Blog-app.git
 
    npm install
+
+   npm run dev
+   

@@ -34,7 +34,8 @@ const AddArticle = () => {
   
   const {user,error,loading} = useSelector((state)=>state.auth)
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+    const { name, value, type, files, checked } = e.target;
+  
     if (type === 'file') {
       const selectedFiles = Array.from(files);
       const maxSize = 2 * 1024 * 1024; // 2 MB limit
@@ -46,11 +47,27 @@ const AddArticle = () => {
   
       setFormData((prevData) => ({
         ...prevData,
-        images: [...prevData.images, ...validFiles], // Only valid files
+        images: [...prevData.images, ...validFiles], // Add valid files to the images array
+      }));
+    } else if (type === 'checkbox') {
+      // Handle checkbox input
+      const updatedCategories = checked
+        ? [...formData.categories, value] // Add the category if checked
+        : formData.categories.filter((category) => category !== value); // Remove the category if unchecked
+  
+      setFormData((prevData) => ({
+        ...prevData,
+        categories: updatedCategories,
+      }));
+    } else {
+      // Handle other input types (text, textarea)
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
       }));
     }
-    // ... rest of the code
   };
+  
   
 
   const removeImage = (index) => {

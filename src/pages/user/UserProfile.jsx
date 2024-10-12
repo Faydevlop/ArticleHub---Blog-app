@@ -174,18 +174,22 @@
                                     Go to Dashboard
                                 </button>
                             </Link>
+                            <Link to={'/add'}>
                             <button
                                 onClick={() => handleOptionClick('New Post')}
                                 className="block px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-black w-full text-left"
                             >
                                 New Post
                             </button>
+                            </Link>
+                            <Link to={'/myArticles'}>
                             <button
                                 onClick={() => handleOptionClick('My Articles')}
                                 className="block px-4 py-2 text-sm text-black hover:bg-gray-100 hover:text-black w-full text-left"
                             >
                                 My Articles
                             </button>
+                            </Link>
                         </div>
                     </div>
                 )}
