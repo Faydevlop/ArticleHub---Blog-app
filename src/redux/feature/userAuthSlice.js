@@ -9,7 +9,7 @@ export const registerAuth = createAsyncThunk(
         try {
          
 
-            let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/signup`,userData)
+            let response = await axios.post(`https://articlehub.moon-cart.shop/user/signup`,userData)
             console.log('response is here');
             
             return response.data
@@ -31,7 +31,7 @@ export const loginAuth = createAsyncThunk(
         try {
            
 
-            let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`,userData)
+            let response = await axios.post(`https://articlehub.moon-cart.shop/user/login`,userData)
             console.log('response is here');
             
             return response.data
