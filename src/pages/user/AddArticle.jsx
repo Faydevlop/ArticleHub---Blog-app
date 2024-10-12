@@ -93,7 +93,7 @@ const AddArticle = () => {
   
       toast.promise(
         axios.post(
-          `${import.meta.env.VITE_BASE_URL}/user/addarticles/${user._id}`,
+          `https://articlehub.moon-cart.shop/user/addarticles/${user._id}`,
           formDataToSend,
           {
             headers: {

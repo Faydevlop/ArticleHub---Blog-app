@@ -20,7 +20,7 @@ const ArticleDetailpage = () => {
     const fetchDetails = async()=>{
         try {
 
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/article/${artId}`);
+            const response = await axios.get(`https://articlehub.moon-cart.shop/user/article/${artId}`);
             setArticle(response.data.article)
             
         } catch (error) {
@@ -53,7 +53,7 @@ const ArticleDetailpage = () => {
     const likeArticle = async()=>{
       try {
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/like/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`);
         console.log(response.data.message);
         
         fetchDetails()
@@ -68,7 +68,7 @@ const ArticleDetailpage = () => {
     const dislikeArticle = async()=>{
       try {
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/dislike/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`);
         console.log(response.data.message);
     
         
@@ -94,7 +94,7 @@ const ArticleDetailpage = () => {
       }).then( async(result) => {
         if (result.isConfirmed) {
 
-          const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/report/${artId}/${user._id}`)
+          const response = await axios.post(`https://articlehub.moon-cart.shop/user/report/${artId}/${user._id}`)
           Swal.fire({
             title: "Blocked!",
             text: "Article is Blocked",

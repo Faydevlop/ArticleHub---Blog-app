@@ -28,7 +28,7 @@ const EditArticle = () => {
   useEffect(() => {
     const fetchArticleData = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/article/${articleId}`);
+        const { data } = await axios.get(`https://articlehub.moon-cart.shop/user/article/${articleId}`);
         setFormData({
           name: data.article.articleName,
           description: data.article.description,
@@ -109,7 +109,7 @@ const EditArticle = () => {
 
         toast.promise(
             axios.post(
-                `${import.meta.env.VITE_BASE_URL}/user/editarticle/${articleId}`,
+                `https://articlehub.moon-cart.shop/user/editarticle/${articleId}`,
                 formDataToSend,
                 {
                     headers: {

@@ -33,7 +33,7 @@
         const fecthUserdata = async()=>{
             try {
 
-                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/getuser/${user._id}`)
+                const response = await axios.get(`https://articlehub.moon-cart.shop/user/getuser/${user._id}`)
                 setFormData({
                     firstName: response.data.user.firstName,
             lastName: response.data.user.lastName,
@@ -74,7 +74,7 @@
         const handleChangePassword = async () => {
             if (validatePasswords()) {
                 try {
-                    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/changePass/${user._id}`, {
+                    const response = await axios.post(`https://articlehub.moon-cart.shop/user/changePass/${user._id}`, {
                         oldPass:oldPassword,
                         newPass:newPassword,
                     });
@@ -123,7 +123,7 @@
         
             toast.promise(
                 axios.post(
-                    `${import.meta.env.VITE_BASE_URL}/user/update/${user._id}`, 
+                    `https://articlehub.moon-cart.shop/user/update/${user._id}`, 
                     formDataToSend,
                     {
                         headers: {

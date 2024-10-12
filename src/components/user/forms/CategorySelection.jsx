@@ -40,7 +40,7 @@ const CategorySelection = () => {
     setState('loading');
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/setintrest/${user._id}`,{interests:selectedCategories})
+      const response = await axios.post(`https://articlehub.moon-cart.shop/user/setintrest/${user._id}`,{interests:selectedCategories})
       navigate('/login')
       
     } catch (error) {

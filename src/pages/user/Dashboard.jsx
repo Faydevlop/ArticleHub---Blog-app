@@ -27,7 +27,7 @@ const Dashboard = () => {
     const fetchArticles = async()=>{
       try {
 
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/listarticles/${user._id}`)
+          const response = await axios.get(`https://articlehub.moon-cart.shop/user/listarticles/${user._id}`)
           setMyArticles(response.data.articles)
           console.log(response.data.articles);
           

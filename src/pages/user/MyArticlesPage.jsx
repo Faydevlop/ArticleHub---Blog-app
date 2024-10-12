@@ -22,7 +22,7 @@ const MyArticlesPage = () => {
 
     const getUserArticles = async()=>{
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/getarticles/${user._id}`)
+            const response = await axios.get(`https://articlehub.moon-cart.shop/user/getarticles/${user._id}`)
             console.log(response.data);
             setMyArticles(response.data.userArticles)
             
@@ -41,7 +41,7 @@ const MyArticlesPage = () => {
     const likeArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/like/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`);
         console.log(response.data.message);
         getUserArticles()
         
@@ -57,7 +57,7 @@ const MyArticlesPage = () => {
     const dislikeArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/dislike/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`);
         console.log(response.data.message);
         getUserArticles()
     
@@ -75,7 +75,7 @@ const MyArticlesPage = () => {
     const deleteArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/delete/${artId}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/delete/${artId}`);
         getUserArticles()
         toast.success('article deleted',{
           duration:2000,
