@@ -33,23 +33,23 @@ const AddArticle = () => {
   const [errors, setErrors] = useState({});
   
   const {user,error,loading} = useSelector((state)=>state.auth)
-
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === 'file') {
       const selectedFiles = Array.from(files);
+      const maxSize = 2 * 1024 * 1024; // 2 MB limit
+      const validFiles = selectedFiles.filter(file => file.size <= maxSize);
+  
+      if (validFiles.length !== selectedFiles.length) {
+        toast.error('Some files exceed the maximum size of 2 MB');
+      }
+  
       setFormData((prevData) => ({
         ...prevData,
-        images: [...prevData.images, ...selectedFiles], // Store File objects directly
+        images: [...prevData.images, ...validFiles], // Only valid files
       }));
-    } else if (type === 'checkbox') {
-      const newCategories = formData.categories.includes(value)
-        ? formData.categories.filter((category) => category !== value)
-        : [...formData.categories, value];
-      setFormData({ ...formData, categories: newCategories });
-    } else {
-      setFormData({ ...formData, [name]: value });
     }
+    // ... rest of the code
   };
   
 
@@ -108,9 +108,9 @@ const AddArticle = () => {
         }
       ).then(() => {
         // Delay navigation to show the success message before redirecting
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 2000); // 2 seconds delay before redirecting to /dashboard
+        // setTimeout(() => {
+        //   navigate('/dashboard');
+        // }, 2000); // 2 seconds delay before redirecting to /dashboard
       });
     }
   };
