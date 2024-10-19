@@ -32,7 +32,7 @@ const AddArticle = () => {
 
   const [errors, setErrors] = useState({});
   
-  const {user,error,loading} = useSelector((state)=>state.auth)
+  const {user,error,loading,token} = useSelector((state)=>state.auth)
   const handleChange = (e) => {
     const { name, value, type, files, checked } = e.target;
   
@@ -85,9 +85,20 @@ const AddArticle = () => {
     if (!formData.description) {
       newErrors.description = 'Description is required';
     }
-    if (formData.images && formData.images.length > 0) {
-      // Validate image types here if needed
-    }
+    
+  if (formData.images && formData.images.length > 0) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    formData.images.forEach((image) => {
+      if (!allowedTypes.includes(image.type)) {
+        newErrors.images = 'Only JPG, PNG, and GIF formats are allowed';
+      }
+      if (image.size > 2 * 1024 * 1024) {
+        newErrors.images = 'Each image must be less than 2 MB';
+      }
+    });
+  } else {
+    newErrors.images = 'At least one image is required';
+  }
     if (formData.categories.length === 0) {
       newErrors.categories = 'At least one category must be selected';
     }
@@ -115,6 +126,7 @@ const AddArticle = () => {
           {
             headers: {
               'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`, // Attach token
             },
           }
         ),
@@ -126,7 +138,7 @@ const AddArticle = () => {
       ).then(() => {
         // Delay navigation to show the success message before redirecting
         // setTimeout(() => {
-        //   navigate('/dashboard');
+          navigate('/dashboard');
         // }, 2000); // 2 seconds delay before redirecting to /dashboard
       });
     }
@@ -164,7 +176,7 @@ const AddArticle = () => {
           {/* Description Textarea */}
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-              Description
+              Article Body
             </label>
             <div className="mt-1">
               <textarea

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const MyArticlesPage = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user,token } = useSelector((state) => state.auth);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [myArticles,setMyArticles] = useState([])
    
@@ -22,7 +22,11 @@ const MyArticlesPage = () => {
 
     const getUserArticles = async()=>{
         try {
-            const response = await axios.get(`https://articlehub.moon-cart.shop/user/getarticles/${user._id}`)
+            const response = await axios.get(`https://articlehub.moon-cart.shop/user/getarticles/${user._id}`,{
+              headers: {
+                  Authorization: `Bearer ${token}`, // Attach token
+              },
+          })
             console.log(response.data);
             setMyArticles(response.data.userArticles)
             
@@ -41,7 +45,11 @@ const MyArticlesPage = () => {
     const likeArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`,{
+          headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+          },
+      });
         console.log(response.data.message);
         getUserArticles()
         
@@ -57,7 +65,11 @@ const MyArticlesPage = () => {
     const dislikeArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`,{
+          headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+          },
+      });
         console.log(response.data.message);
         getUserArticles()
     
@@ -75,7 +87,11 @@ const MyArticlesPage = () => {
     const deleteArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/delete/${artId}`);
+        const response = await axios.delete(`https://articlehub.moon-cart.shop/user/delete/${artId}/${user._id}`,{
+          headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+          },  
+      });
         getUserArticles()
         toast.success('article deleted',{
           duration:2000,
@@ -183,7 +199,7 @@ const MyArticlesPage = () => {
 
             <div className="p-6">
               <h2 className="text-2xl font-bold mb-2">{art.articleName}</h2>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-4 line-clamp-3 ">
               {art.description}
               </p>
               <div className="flex items-center justify-between mb-4">
@@ -196,7 +212,7 @@ const MyArticlesPage = () => {
               <hr className='mb-3' />
 
               <div className="flex items-center  justify-between">
-                <div onClick={()=>likeArticle(art._id)} className="flex bg-black/25 hover:bg-black/80 p-1 rounded-lg hover:text-white  items-center">
+                <div onClick={()=>likeArticle(art._id)} className="flex bg-white/25 hover:bg-black/80 p-1 rounded-lg hover:text-white  items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -214,7 +230,7 @@ const MyArticlesPage = () => {
                   </svg>
                   <span>{art?.likes}</span>
                 </div>
-                <div onClick={()=>dislikeArticle(art._id)} className="flex bg-black/25 hover:bg-black/80 p-1 rounded-lg hover:text-white  items-center">
+                <div onClick={()=>dislikeArticle(art._id)} className="flex bg-white/25 hover:bg-black/80 p-1 rounded-lg hover:text-white  items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -234,12 +250,12 @@ const MyArticlesPage = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Link to={`/edit/${art._id}`}>
-                  <button className="inline-flex bg-black/25 hover:bg-black/80 hover:text-white items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+                  <button className="inline-flex bg-white/25 hover:bg-black/80 hover:text-white items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
                     Edit
                   </button>
                   </Link>
                   
-                  <button onClick={()=>deleteArticle(art._id)} className="inline-flex bg-black/25 hover:bg-black/80 hover:text-white items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+                  <button onClick={()=>deleteArticle(art._id)} className="inline-flex bg-white/25 hover:bg-black/80 hover:text-white items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
                     Delete
                   </button>
              

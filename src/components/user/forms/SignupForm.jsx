@@ -27,22 +27,55 @@ const SignupForm = ({ onFormSubmit }) => {
   const validateForm = () => {
     const newErrors = {};
     const { firstName, lastName, phone, email, dateOfBirth, password, confirmPassword } = formData;
-
-    if (!firstName) newErrors.firstName = 'First Name is required.';
-    if (!lastName) newErrors.lastName = 'Last Name is required.';
-    if (!phone) newErrors.phone = 'Phone number is required.';
+  
+    // First name validation: only letters
+    if (!firstName) {
+      newErrors.firstName = 'First Name is required.';
+    } else if (!/^[A-Za-z]+$/.test(firstName)) {
+      newErrors.firstName = 'First Name can only contain letters.';
+    }
+  
+    // Last name validation: only letters
+    if (!lastName) {
+      newErrors.lastName = 'Last Name is required.';
+    } else if (!/^[A-Za-z]+$/.test(lastName)) {
+      newErrors.lastName = 'Last Name can only contain letters.';
+    }
+  
+    // Phone number validation: no repetitive numbers like "0000000000"
+    if (!phone) {
+      newErrors.phone = 'Phone number is required.';
+    } else if (!/^\d{10}$/.test(phone)) {
+      newErrors.phone = 'Phone number must be exactly 10 digits.';
+    } else if (/^(\d)\1{9}$/.test(phone)) {
+      newErrors.phone = 'Phone number cannot be repetitive numbers (e.g., 0000000000).';
+    }
+  
+    // Email validation
     if (!email) newErrors.email = 'Email is required.';
-    if (!dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required.';
+  
+    // Date of birth validation: must be a past date
+    if (!dateOfBirth) {
+      newErrors.dateOfBirth = 'Date of Birth is required.';
+    } else if (new Date(dateOfBirth) >= new Date()) {
+      newErrors.dateOfBirth = 'Date of Birth must be in the past.';
+    }
+  
+    // Password validation: minimum 6 characters
     if (!password) {
       newErrors.password = 'Password is required.';
     } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters long.';
+    } else if (!/(?=.*[0-9])(?=.*[!@#$%^&*])/.test(password)) {
+      newErrors.password = 'Password must include at least one number and one special character.';
     }
-    
+  
+    // Confirm password validation
     if (password !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match.';
-
+  
     return newErrors;
   };
+  
 
   useEffect(() => {
     // Clear error when component unmounts or form is submitted successfully

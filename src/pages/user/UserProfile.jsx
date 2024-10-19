@@ -12,7 +12,7 @@
       ];
 
     const UserProfile = () => {
-        const { user } = useSelector((state) => state.auth);
+        const { user,token } = useSelector((state) => state.auth);
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
         const [isEditing, setIsEditing] = useState(false);
         const [oldPassword, setOldPassword] = useState('');
@@ -33,7 +33,11 @@
         const fecthUserdata = async()=>{
             try {
 
-                const response = await axios.get(`https://articlehub.moon-cart.shop/user/getuser/${user._id}`)
+                const response = await axios.get(`https://articlehub.moon-cart.shop/user/getuser/${user._id}`,{
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Attach token
+                    },
+                })
                 setFormData({
                     firstName: response.data.user.firstName,
             lastName: response.data.user.lastName,
@@ -77,6 +81,10 @@
                     const response = await axios.post(`https://articlehub.moon-cart.shop/user/changePass/${user._id}`, {
                         oldPass:oldPassword,
                         newPass:newPassword,
+                    },{
+                        headers: {
+                            Authorization: `Bearer ${token}`, // Attach token
+                        },
                     });
                     setSuccess('Password changed successfully!');
                     toast.success('Password changed successfully!')
@@ -122,12 +130,13 @@
             }
         
             toast.promise(
-                axios.post(
+                axios.put(
                     `https://articlehub.moon-cart.shop/user/update/${user._id}`, 
                     formDataToSend,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',
+                            Authorization: `Bearer ${token}`, // Attach token
                         },
                     }
                 ),

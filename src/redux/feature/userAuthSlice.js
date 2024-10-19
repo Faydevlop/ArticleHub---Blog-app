@@ -1,5 +1,17 @@
 import {createAsyncThunk,createSlice} from '@reduxjs/toolkit'
 import axios from 'axios'
+function decodeJWT(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+
+
+
 
 // routes
 
@@ -9,7 +21,7 @@ export const registerAuth = createAsyncThunk(
         try {
          
 
-            let response = await axios.post(`https://articlehub.moon-cart.shop/user/signup`,userData)
+            let response = await axios.post(`https://articlehub.moon-cart.shop/user/signup`,userData,)
             console.log('response is here');
             
             return response.data
@@ -51,6 +63,7 @@ export const loginAuth = createAsyncThunk(
 const userAuthSlice = createSlice({
     name:'userAuth',
     initialState:{
+        token:null,
         user:null,
         error:null,
         loading:false,
@@ -62,6 +75,7 @@ const userAuthSlice = createSlice({
         },
         logout(state){
             state.user = null
+            state.token = null
             state.isAuthenticated = false
         }
       },
@@ -73,7 +87,19 @@ const userAuthSlice = createSlice({
         .addCase(registerAuth.fulfilled,(state,action)=>{
             state.loading = false;
             state.user = action.payload.user;
+            state.token = action.payload.token;
             state.error = null;
+
+
+            const decodedToken = decodeJWT(action.payload.token);
+
+            const expirationTime = decodedToken.exp * 1000;
+
+            setTimeout(() => {
+                state.token = null;
+                state.user = null;
+                state.isAuthenticated = false;
+            }, expirationTime - Date.now());
             
         })
         .addCase(registerAuth.rejected,(state,action)=>{
@@ -89,6 +115,17 @@ const userAuthSlice = createSlice({
             state.user = action.payload.user;
             state.error = null;
             state.isAuthenticated = true
+            state.token = action.payload.token;
+
+            const decodedToken = decodeJWT(action.payload.token);
+
+            const expirationTime = decodedToken.exp * 1000;
+
+            setTimeout(() => {
+                state.token = null;
+                state.user = null;
+                state.isAuthenticated = false;
+            }, expirationTime - Date.now());
         })
         .addCase(loginAuth.rejected,(state,action)=>{
             state.loading = false;

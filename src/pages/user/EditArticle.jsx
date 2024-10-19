@@ -22,13 +22,17 @@ const EditArticle = () => {
 
   const [existingImages, setExistingImages] = useState([]); // To handle existing images
   const [errors, setErrors] = useState({});
-  const { user } = useSelector((state) => state.auth);
+  const { user,token } = useSelector((state) => state.auth);
 
   // Fetch existing article data based on articleId
   useEffect(() => {
     const fetchArticleData = async () => {
       try {
-        const { data } = await axios.get(`https://articlehub.moon-cart.shop/user/article/${articleId}`);
+        const { data } = await axios.get(`https://articlehub.moon-cart.shop/user/article/${articleId}`,{
+          headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+          },
+      });
         setFormData({
           name: data.article.articleName,
           description: data.article.description,
@@ -108,12 +112,13 @@ const EditArticle = () => {
         formDataToSend.append('categories', formData.categories.join(','));
 
         toast.promise(
-            axios.post(
-                `https://articlehub.moon-cart.shop/user/editarticle/${articleId}`,
+            axios.put(
+                `https://articlehub.moon-cart.shop/user/editarticle/${articleId}/${user._id}`,
                 formDataToSend,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`, // Attach token
                     },
                 }
             ),

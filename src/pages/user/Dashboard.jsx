@@ -8,7 +8,7 @@ import { persistor } from '../../redux/store';
 
 
 const Dashboard = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user,token } = useSelector((state) => state.auth);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [articles,setMyArticles] = useState([])
     const dispath = useDispatch()
@@ -27,7 +27,11 @@ const Dashboard = () => {
     const fetchArticles = async()=>{
       try {
 
-          const response = await axios.get(`https://articlehub.moon-cart.shop/user/listarticles/${user._id}`)
+          const response = await axios.get(`https://articlehub.moon-cart.shop/user/listarticles/${user._id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`, // Attach token
+            },
+        })
           setMyArticles(response.data.articles)
           console.log(response.data.articles);
           

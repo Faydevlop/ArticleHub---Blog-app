@@ -8,7 +8,7 @@ const CategorySelection = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [state, setState] = useState('idle');
 
-    const {user,error,loading} = useSelector((state)=>state.auth)
+    const {user,error,loading,token} = useSelector((state)=>state.auth)
 
   const navigate = useNavigate()
 
@@ -40,7 +40,11 @@ const CategorySelection = () => {
     setState('loading');
 
     try {
-      const response = await axios.post(`https://articlehub.moon-cart.shop/user/setintrest/${user._id}`,{interests:selectedCategories})
+      const response = await axios.post(`https://articlehub.moon-cart.shop/user/setintrest/${user._id}`,{interests:selectedCategories},{
+        headers: {
+            Authorization: `Bearer ${token}`, // Attach token
+        },
+    })
       navigate('/login')
       
     } catch (error) {

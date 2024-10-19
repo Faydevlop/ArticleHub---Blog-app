@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 
 const ArticleDetailpage = () => {
     const {artId} = useParams()
-    const { user } = useSelector((state) => state.auth);
+    const { user,token } = useSelector((state) => state.auth);
   
     const [article,setArticle] = useState({})
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,7 +20,11 @@ const ArticleDetailpage = () => {
     const fetchDetails = async()=>{
         try {
 
-            const response = await axios.get(`https://articlehub.moon-cart.shop/user/article/${artId}`);
+            const response = await axios.get(`https://articlehub.moon-cart.shop/user/article/${artId}`,{
+              headers: {
+                  Authorization: `Bearer ${token}`, // Attach token
+              },
+          });
             setArticle(response.data.article)
             
         } catch (error) {
@@ -53,7 +57,11 @@ const ArticleDetailpage = () => {
     const likeArticle = async()=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`,{
+          headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+          },
+      });
         console.log(response.data.message);
         
         fetchDetails()
@@ -68,7 +76,11 @@ const ArticleDetailpage = () => {
     const dislikeArticle = async()=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`);
+        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`,{
+          headers: {
+              Authorization: `Bearer ${token}`, // Attach token
+          },
+      });
         console.log(response.data.message);
     
         
@@ -94,7 +106,11 @@ const ArticleDetailpage = () => {
       }).then( async(result) => {
         if (result.isConfirmed) {
 
-          const response = await axios.post(`https://articlehub.moon-cart.shop/user/report/${artId}/${user._id}`)
+          const response = await axios.post(`https://articlehub.moon-cart.shop/user/report/${artId}/${user._id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`, // Attach token
+            },
+        })
           Swal.fire({
             title: "Blocked!",
             text: "Article is Blocked",
@@ -245,7 +261,7 @@ const ArticleDetailpage = () => {
     <div className="space-y-8">
       <div>
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl"> {article?.articleName}</h2>
-        <p className="mt-4 text-muted-foreground">
+        <p className="mt-4 text-muted-foreground ">
           {article?.description}
         </p>
       </div>

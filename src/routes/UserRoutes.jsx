@@ -2,6 +2,7 @@ import React,{Suspense,lazy} from "react";
 import { useSelector } from "react-redux";
 import {Routes,Route,Navigate} from 'react-router-dom'
 import EditArticle from "../pages/user/EditArticle";
+import LoadingSpinner from "../components/Loader/LoadingSpinner";
 
 
 const UserSignupPage = lazy(()=>import('../pages/user/Signin'))
@@ -20,7 +21,7 @@ const ArticleDetailpage = lazy(()=>import('../pages/user/ArticleDetailpage'))
 const UserRoutes = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   return (
-    <Suspense fallback={<div>Loading...</div>} >
+    <Suspense fallback={<LoadingSpinner/>} >
         <Routes>
             
             <Route path='' element={<Navigate to='/login' />} />  
