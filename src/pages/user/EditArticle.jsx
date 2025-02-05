@@ -28,7 +28,7 @@ const EditArticle = () => {
   useEffect(() => {
     const fetchArticleData = async () => {
       try {
-        const { data } = await axios.get(`https://articlehub.moon-cart.shop/user/article/${articleId}`,{
+        const { data } = await axios.get(`https://art.fayisnambiyath.in/user/article/${articleId}`,{
           headers: {
               Authorization: `Bearer ${token}`, // Attach token
           },
@@ -113,7 +113,7 @@ const EditArticle = () => {
 
         toast.promise(
             axios.put(
-                `https://articlehub.moon-cart.shop/user/editarticle/${articleId}/${user._id}`,
+                `https://art.fayisnambiyath.in/user/editarticle/${articleId}/${user._id}`,
                 formDataToSend,
                 {
                     headers: {

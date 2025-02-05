@@ -33,7 +33,7 @@
         const fecthUserdata = async()=>{
             try {
 
-                const response = await axios.get(`https://articlehub.moon-cart.shop/user/getuser/${user._id}`,{
+                const response = await axios.get(`https://art.fayisnambiyath.in/user/getuser/${user._id}`,{
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach token
                     },
@@ -78,7 +78,7 @@
         const handleChangePassword = async () => {
             if (validatePasswords()) {
                 try {
-                    const response = await axios.post(`https://articlehub.moon-cart.shop/user/changePass/${user._id}`, {
+                    const response = await axios.post(`https://art.fayisnambiyath.in/user/changePass/${user._id}`, {
                         oldPass:oldPassword,
                         newPass:newPassword,
                     },{
@@ -131,7 +131,7 @@
         
             toast.promise(
                 axios.put(
-                    `https://articlehub.moon-cart.shop/user/update/${user._id}`, 
+                    `https://art.fayisnambiyath.in/user/update/${user._id}`, 
                     formDataToSend,
                     {
                         headers: {

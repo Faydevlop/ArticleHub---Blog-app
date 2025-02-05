@@ -22,7 +22,7 @@ const MyArticlesPage = () => {
 
     const getUserArticles = async()=>{
         try {
-            const response = await axios.get(`https://articlehub.moon-cart.shop/user/getarticles/${user._id}`,{
+            const response = await axios.get(`https://art.fayisnambiyath.in/user/getarticles/${user._id}`,{
               headers: {
                   Authorization: `Bearer ${token}`, // Attach token
               },
@@ -45,7 +45,7 @@ const MyArticlesPage = () => {
     const likeArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`,{
+        const response = await axios.post(`https://art.fayisnambiyath.in/user/like/${artId}/${user._id}`,{
           headers: {
               Authorization: `Bearer ${token}`, // Attach token
           },
@@ -65,7 +65,7 @@ const MyArticlesPage = () => {
     const dislikeArticle = async(artId)=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`,{
+        const response = await axios.post(`https://art.fayisnambiyath.in/user/dislike/${artId}/${user._id}`,{
           headers: {
               Authorization: `Bearer ${token}`, // Attach token
           },
@@ -87,7 +87,7 @@ const MyArticlesPage = () => {
     const deleteArticle = async(artId)=>{
       try {
 
-        const response = await axios.delete(`https://articlehub.moon-cart.shop/user/delete/${artId}/${user._id}`,{
+        const response = await axios.delete(`https://art.fayisnambiyath.in/user/delete/${artId}/${user._id}`,{
           headers: {
               Authorization: `Bearer ${token}`, // Attach token
           },  

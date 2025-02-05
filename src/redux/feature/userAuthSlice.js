@@ -1,5 +1,6 @@
 import {createAsyncThunk,createSlice} from '@reduxjs/toolkit'
 import axios from 'axios'
+
 function decodeJWT(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -21,7 +22,7 @@ export const registerAuth = createAsyncThunk(
         try {
          
 
-            let response = await axios.post(`https://articlehub.moon-cart.shop/user/signup`,userData,)
+            let response = await axios.post(`https://art.fayisnambiyath.in/user/signup`,userData,)
             console.log('response is here');
             
             return response.data
@@ -43,7 +44,7 @@ export const loginAuth = createAsyncThunk(
         try {
            
 
-            let response = await axios.post(`https://articlehub.moon-cart.shop/user/login`,userData)
+            let response = await axios.post(`https://art.fayisnambiyath.in/user/login`,userData)
             console.log('response is here');
             
             return response.data
