@@ -27,7 +27,7 @@ const Dashboard = () => {
     const fetchArticles = async()=>{
       try {
 
-          const response = await axios.get(`https://articlehub.moon-cart.shop/user/listarticles/${user._id}`,{
+          const response = await axios.get(`https://url.fayisnambiyath.in/user/listarticles/${user._id}`,{
             headers: {
                 Authorization: `Bearer ${token}`, // Attach token
             },

@@ -20,7 +20,7 @@ const ArticleDetailpage = () => {
     const fetchDetails = async()=>{
         try {
 
-            const response = await axios.get(`https://articlehub.moon-cart.shop/user/article/${artId}`,{
+            const response = await axios.get(`https://url.fayisnambiyath.in/user/article/${artId}`,{
               headers: {
                   Authorization: `Bearer ${token}`, // Attach token
               },
@@ -57,7 +57,7 @@ const ArticleDetailpage = () => {
     const likeArticle = async()=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/like/${artId}/${user._id}`,{
+        const response = await axios.post(`https://url.fayisnambiyath.in/user/like/${artId}/${user._id}`,{
           headers: {
               Authorization: `Bearer ${token}`, // Attach token
           },
@@ -76,7 +76,7 @@ const ArticleDetailpage = () => {
     const dislikeArticle = async()=>{
       try {
 
-        const response = await axios.post(`https://articlehub.moon-cart.shop/user/dislike/${artId}/${user._id}`,{
+        const response = await axios.post(`https://url.fayisnambiyath.in/user/dislike/${artId}/${user._id}`,{
           headers: {
               Authorization: `Bearer ${token}`, // Attach token
           },
@@ -106,7 +106,7 @@ const ArticleDetailpage = () => {
       }).then( async(result) => {
         if (result.isConfirmed) {
 
-          const response = await axios.post(`https://articlehub.moon-cart.shop/user/report/${artId}/${user._id}`,{
+          const response = await axios.post(`https://url.fayisnambiyath.in/user/report/${artId}/${user._id}`,{
             headers: {
                 Authorization: `Bearer ${token}`, // Attach token
             },

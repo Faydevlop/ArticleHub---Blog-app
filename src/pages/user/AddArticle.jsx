@@ -121,7 +121,7 @@ const AddArticle = () => {
   
       toast.promise(
         axios.post(
-          `https://articlehub.moon-cart.shop/user/addarticles/${user._id}`,
+          `https://url.fayisnambiyath.in/user/addarticles/${user._id}`,
           formDataToSend,
           {
             headers: {
