@@ -45,6 +45,7 @@ const Dashboard = () => {
 
     useEffect(()=>{
       fetchArticles()
+      fetchArticles()
     },[])
 
     const Logout = ()=>{
